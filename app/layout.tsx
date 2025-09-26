@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { NavigationDrawer } from "./components/NavigationDrawer";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,9 +27,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-lightGray antialiased`}
       >
-        {children}
+        <div className="grid grid-cols-5 w-full min-h-screen">
+          <div className="col-span-1 py-5 pl-5 h-full">
+            <NavigationDrawer />
+          </div>
+          <div className="col-span-4">{children}</div>
+        </div>
       </body>
     </html>
   );
