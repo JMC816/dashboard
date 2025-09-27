@@ -121,11 +121,11 @@ export default function CompanyClient() {
       </div>
       <div className="w-full flex gap-5">
         <div className="w-[50%] p-5 pr-10 bg-white rounded-3xl">
-          <span className="text-xl">Monthly emissions</span>
+          <span className="text-xl">Monthly Emission Bar Graph</span>
           <BarChart company={selectedCompany} />
         </div>
         <div className="w-[50%] p-5 pr-10 bg-white rounded-3xl">
-          <span className="text-xl">Monthly emissions</span>
+          <span className="text-xl">Monthly Emissions Area Graph</span>
           <AreaChart company={selectedCompany} />
         </div>
       </div>
