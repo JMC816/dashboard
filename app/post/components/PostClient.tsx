@@ -81,12 +81,12 @@ export default function PostClient() {
         <div
           className={`${
             show ? "flex" : "hidden"
-          } flex-col gap-5 bg-white rounded-xl mt-[10px] w-[200px] p-5 absolute top-10`}
+          } flex-col gap-5 bg-white rounded-xl mt-[10px] w-[200px] p-5 absolute top-10 shadow-md`}
         >
           {companies.map(({ country, id }) => (
             <span
               key={id}
-              className="text-center hover:bg-lightGray hover:cursor-pointer hover:rounded-xl p-2"
+              className="text-center hover:bg-lightGray hover:cursor-pointer hover:rounded-xl p-2 "
               onClick={() => {
                 setSelectedCompanyId(id);
                 setShow(false);

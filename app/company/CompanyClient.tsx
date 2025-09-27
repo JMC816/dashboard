@@ -83,7 +83,7 @@ export default function CompanyClient() {
         <div
           className={`${
             show ? "flex" : "hidden"
-          } flex-col gap-5 bg-white rounded-xl mt-[10px] w-[200px] p-5 absolute top-10`}
+          } flex-col gap-5 bg-white rounded-xl mt-[10px] w-[200px] p-5 absolute top-10 shadow-md`}
         >
           {companies.map(({ country, id }) => (
             <span
