@@ -5,8 +5,10 @@ import AreanChart from "./components/AreaChart";
 import BarChart from "./components/BarChart";
 import MapChart from "./components/MapChart";
 import { TotalEmission } from "./components/TotalEmission";
-import { fetchCompanies } from "../lib/api"; // API 가져오기
+import { fetchCompanies } from "../lib/api";
 import { Company } from "../types/companies";
+import loading from "../public/images/loading.png";
+import Image from "next/image";
 
 export default function DashboardClient() {
   const [companies, setCompanies] = useState<Company[]>([]);
@@ -15,7 +17,12 @@ export default function DashboardClient() {
     fetchCompanies().then((data) => setCompanies(data));
   }, []);
 
-  if (!companies.length) return <div>Loading...</div>;
+  if (!companies.length)
+    return (
+      <div className="w-full h-full flex justify-center items-center animate-spin">
+        <Image src={loading} width={50} height={50} alt="loading" />
+      </div>
+    );
 
   const data = companies.map((item) => {
     const sum = item.emissions.reduce(

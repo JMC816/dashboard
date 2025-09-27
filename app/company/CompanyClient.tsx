@@ -4,6 +4,7 @@ import React, { useState, useEffect, FormEvent } from "react";
 import Image from "next/image";
 import down from "../public/images/down.png";
 import up from "../public/images/up.png";
+import loading from "../public/images/loading.png";
 import AreaChart from "./components/AreaChart";
 import { createOrUpdatePost, fetchCompanies, fetchPosts } from "../lib/api";
 import { Company } from "../types/companies";
@@ -55,7 +56,12 @@ export default function CompanyClient() {
     fetchPosts().then((data) => setPost(data));
   }, []);
 
-  if (!companies.length) return <div className="w-full h-full">Loading...</div>;
+  if (!companies.length)
+    return (
+      <div className="w-full h-full flex justify-center items-center animate-spin">
+        <Image src={loading} width={50} height={50} alt="loading" />
+      </div>
+    );
 
   const selectedCompany = companies.find((c) => c.id === selectedCompanyId)!;
   const selectPost = post.filter(
@@ -64,7 +70,7 @@ export default function CompanyClient() {
   return (
     <div className="flex flex-col gap-5 p-5 w-full">
       <div className="w-full h-20 bg-white rounded-2xl flex justify-center items-center text-2xl font-bold text-blue">
-        Company
+        Post
       </div>
       <div className="w-full flex items-end flex-col relative">
         <div
@@ -160,24 +166,32 @@ export default function CompanyClient() {
             <button className="bg-gray-400 p-2 rounded-xl">Submit</button>
           </form>
         </div>
-        {selectPost.length > 0 ? (
-          selectPost.map(
-            ({ title, dateTime, content, id, resourceUid }, idx) => (
-              <Posts
-                key={idx}
-                id={id}
-                resourceUid={resourceUid}
-                title={title}
-                dateTime={dateTime}
-                content={content}
-              />
-            )
-          )
-        ) : (
-          <div className="w-full  px-10  py-5 rounded-3xl bg-lightGray">
-            No Post
+        <div className="w-full px-10  py-5 rounded-3xl bg-lightGray">
+          <div className="flex text-gray-400">
+            <span className="w-[30%]">Titme</span>
+            <span className="w-[30%]">DateTime</span>
+            <span className="w-[30%]">Content</span>
           </div>
-        )}
+          <div className="border border-gray-300 mb-2 mt-2" />
+          {selectPost.length > 0 ? (
+            selectPost.map(
+              ({ title, dateTime, content, id, resourceUid }, idx) => (
+                <Posts
+                  key={idx}
+                  id={id}
+                  resourceUid={resourceUid}
+                  title={title}
+                  dateTime={dateTime}
+                  content={content}
+                />
+              )
+            )
+          ) : (
+            <div className="w-full  px-10  py-5 rounded-3xl bg-lightGray">
+              No Post
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
