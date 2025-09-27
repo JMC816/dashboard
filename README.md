@@ -1,41 +1,42 @@
-<<<<<<< HEAD
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# [ Dashboard ]
 
-## Getting Started
+로컬 환경 실행: npm run dev
 
-First, run the development server:
+### Dashboard
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- 7시간(9월 26일)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Company + Post
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 5시간(9월 27일)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 공통
 
-## Learn More
+- Navigation Drawer 구현
+- 각 페이지(Dashboard, Company, Post) 이동
 
-To learn more about Next.js, take a look at the following resources:
+### 1. Dashboard(7시간/9월 26일)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- 각 나라 월별 배출량 합계 표시
+- 현재 달과 이전 달 비교하여 증가 및 감소 백분율 측정
+- 각 나라 월별 배출량 막대 그래프 구현
+- 각 나라 월별 배출량 Area 그래프 구현
+- 지도로 각 나라 배출량 표시
+- 페이지 렌더링 시 로딩 애니메이션 표시
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Company(5시간/9월 27일)
 
-## Deploy on Vercel
+- 월별 배출량 표시
+- 각 나라 선택 드롭다운 구현
+- 월별 배출량 막대 그래프 구현
+- 월별 배출량 Area 그래프 구현
+- Post 구현
+- 제목, 시간, 내용 입력시 post 등록
+- 페이지 렌더링 시 로딩 애니메이션 표시
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 3. Post
 
-# Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-# dashboard
-
-> > > > > > > 821f61e1b67d9171a87988f49c8ff7d2a494a458
+- 각 나라 선택 드롭다운 구현
+- Post 구현
+- 제목, 시간, 내용 입력시 post 등록
+- 페이지 렌더링 시 로딩 애니메이션 표시
