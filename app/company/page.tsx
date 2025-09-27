@@ -1,5 +1,7 @@
+import CompanyClient from "./CompanyClient";
+
 const Company = () => {
-  return <div>asd</div>;
+  return <CompanyClient />;
 };
 
 export default Company;

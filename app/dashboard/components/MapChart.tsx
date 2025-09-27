@@ -4,11 +4,23 @@ import * as am5 from "@amcharts/amcharts5";
 import * as am5map from "@amcharts/amcharts5/map";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import am5geodata_worldLow from "@amcharts/amcharts5-geodata/worldLow";
-import { companies } from "@/app/types/seed/companise";
 import { useEffect } from "react";
+import { Company } from "@/app/types/companies";
 
-export default function MapChart() {
+interface MapChartProps {
+  companies: Company[];
+}
+
+interface Emission {
+  yearMonth: string;
+  source: string;
+  emissions: number;
+}
+
+export default function MapChart({ companies }: MapChartProps) {
   useEffect(() => {
+    if (!companies.length) return;
+
     const root = am5.Root.new("chartdiv");
     root.setThemes([am5themes_Animated.new(root)]);
 
@@ -26,7 +38,10 @@ export default function MapChart() {
     const data = companies.map((c) => ({
       id: c.country,
       name: c.name,
-      value: c.emissions.reduce((acc, e) => acc + e.emissions, 0),
+      value: c.emissions.reduce(
+        (acc: number, e: Emission) => acc + e.emissions,
+        0
+      ),
     }));
 
     const bubbleSeries = chart.series.push(
@@ -106,7 +121,7 @@ export default function MapChart() {
     return () => {
       root.dispose();
     };
-  }, []);
+  }, [companies]);
 
   return <div id="chartdiv" className="w-full h-[400px]" />;
 }

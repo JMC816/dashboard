@@ -1,7 +1,8 @@
 import { Post } from "../types/posts";
+import { companies, countries, posts } from "../types/seed/companise";
 
-let _countries = [...countries];
-let _companies = [...companies];
+const _countries = [...countries];
+const _companies = [...companies];
 let _posts = [...posts];
 const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
 const jitter = () => 200 + Math.random() * 600;

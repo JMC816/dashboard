@@ -4,18 +4,17 @@ import React, { useEffect, useRef } from "react";
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
 import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import { companies } from "@/app/types/seed/companise";
+import { Company } from "@/app/types/companies";
 
-interface Row {
-  month: string;
-  [country: string]: string | number;
+interface AreaChartProps {
+  companies: Company[];
 }
 
-export default function AreaChart() {
+export default function AreaChart({ companies }: AreaChartProps) {
   const chartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (!chartRef.current) return;
+    if (!chartRef.current || !companies.length) return;
 
     const root = am5.Root.new(chartRef.current);
     root.setThemes([am5themes_Animated.new(root)]);
@@ -31,7 +30,7 @@ export default function AreaChart() {
       })
     );
 
-    // 색상 세트
+    // 차트 색 추가
     chart.set(
       "colors",
       am5.ColorSet.new(root, {
@@ -48,22 +47,14 @@ export default function AreaChart() {
       })
     );
 
-    // Cursor
-    const cursor = chart.set(
-      "cursor",
-      am5xy.XYCursor.new(root, {
-        behavior: "none",
-      })
-    );
-    cursor.lineY.set("visible", false);
-
-    // 데이터 생성
     const allMonths = Array.from(
       new Set(companies.flatMap((c) => c.emissions.map((e) => e.yearMonth)))
     ).sort();
 
     const data = allMonths.map((month) => {
-      const row: Row = { month };
+      const row: { month: string; [country: string]: number | string } = {
+        month,
+      };
       companies.forEach((c) => {
         const emission = c.emissions.find((e) => e.yearMonth === month);
         row[c.country] = emission ? emission.emissions : 0;
@@ -71,22 +62,18 @@ export default function AreaChart() {
       return row;
     });
 
-    // x축
+    // x축 생성
     const xAxis = chart.xAxes.push(
       am5xy.CategoryAxis.new(root, {
         categoryField: "month",
         startLocation: 0.5,
         endLocation: 0.5,
-        renderer: am5xy.AxisRendererX.new(root, {
-          minorGridEnabled: true,
-          minGridDistance: 70,
-        }),
-        tooltip: am5.Tooltip.new(root, {}),
+        renderer: am5xy.AxisRendererX.new(root, { minGridDistance: 70 }),
       })
     );
     xAxis.data.setAll(data);
 
-    // y축
+    // y축 생성
     const yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
         renderer: am5xy.AxisRendererY.new(root, {}),
@@ -102,7 +89,6 @@ export default function AreaChart() {
           valueYField: field,
           categoryXField: "month",
           stacked: true,
-          stroke: am5.color(0xffffff),
           tooltip: am5.Tooltip.new(root, {
             pointerOrientation: "horizontal",
             labelText: "[bold]{name}[/]\n{categoryX}: {valueY}",
@@ -120,28 +106,18 @@ export default function AreaChart() {
         visible: true,
       });
 
+      // 데이터 적용
       series.data.setAll(data);
       series.appear(1000);
     }
 
-    // 국가별 시리즈 생성
     companies.forEach((c) => createSeries(c.country, c.country));
-
-    // 스크롤바
-    chart.set(
-      "scrollbarX",
-      am5.Scrollbar.new(root, {
-        orientation: "horizontal",
-      })
-    );
 
     // 애니메이션
     chart.appear(1000, 100);
 
-    return () => {
-      root.dispose();
-    };
-  }, []);
+    return () => root.dispose();
+  }, [companies]);
 
   return <div ref={chartRef} className="h-[400px] w-full" />;
 }

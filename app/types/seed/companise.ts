@@ -33,3 +33,10 @@ export const posts: Post[] = [
     content: "Quarterly CO2 update",
   },
 ];
+
+export const countries = Array.from(
+  new Set(companies.map((c) => c.country))
+).map((code) => ({
+  code,
+  name: code, // 혹은 코드별 실제 이름 매핑 가능
+}));
