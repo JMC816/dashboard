@@ -1,5 +1,7 @@
+import PostClient from "./components/PostClient";
+
 const Post = () => {
-  return <div>post</div>;
+  return <PostClient />;
 };
 
 export default Post;

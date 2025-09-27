@@ -2,16 +2,14 @@
 
 import React, { useState, useEffect, FormEvent } from "react";
 import Image from "next/image";
-import down from "../public/images/down.png";
-import up from "../public/images/up.png";
-import AreaChart from "./components/AreaChart";
-import { createOrUpdatePost, fetchCompanies, fetchPosts } from "../lib/api";
-import { Company } from "../types/companies";
-import Posts from "./components/Posts";
-import { Post } from "../types/posts";
-import BarChart from "./components/BarChart";
+import down from "../../public/images/down.png";
+import up from "../../public/images/up.png";
+import { Company } from "@/app/types/companies";
+import { Post } from "@/app/types/posts";
+import { createOrUpdatePost, fetchCompanies, fetchPosts } from "@/app/lib/api";
+import Posts from "@/app/company/components/Posts";
 
-export default function CompanyClient() {
+export default function PostClient() {
   const [companies, setCompanies] = useState<Company[]>([]);
   const [post, setPost] = useState<Post[]>([]);
   const [show, setShow] = useState(false);
@@ -91,36 +89,6 @@ export default function CompanyClient() {
               {country}
             </span>
           ))}
-        </div>
-      </div>
-      <div className="flex w-full gap-5">
-        {selectedCompany.emissions.map(
-          ({ yearMonth, source, emissions }, idx) => (
-            <div
-              key={idx}
-              className="w-full h-[200px] bg-white rounded-3xl p-10 flex flex-col justify-between"
-            >
-              <div className="w-full gap-5">
-                <span className="text-3xl">Monthly emissions</span>
-              </div>
-              <div className="text-xl flex flex-col">
-                <span>{yearMonth}</span>
-                <span>
-                  {source} | <span className="text-blue">{emissions}</span>
-                </span>
-              </div>
-            </div>
-          )
-        )}
-      </div>
-      <div className="w-full flex gap-5">
-        <div className="w-[50%] p-5 pr-10 bg-white rounded-3xl">
-          <span className="text-xl">Monthly emissions</span>
-          <BarChart company={selectedCompany} />
-        </div>
-        <div className="w-[50%] p-5 pr-10 bg-white rounded-3xl">
-          <span className="text-xl">Monthly emissions</span>
-          <AreaChart company={selectedCompany} />
         </div>
       </div>
       <div className="w-[full] p-5 bg-white rounded-3xl flex flex-col gap-5">
